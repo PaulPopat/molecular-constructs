@@ -1,0 +1,44 @@
+{
+  "name": "molecular-constructs",
+  "version": "0.0.1",
+  "description": "Electron made simple",
+  "main": "./bin/index.js",
+  "scripts": {
+    "build": "jest && babel src --out-dir lib --extensions \".ts\" --source-maps inline",
+    "test": "jest --coverage",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaulPopat/molecular-constructs.git"
+  },
+  "author": "Paul Popat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PaulPopat/molecular-constructs/issues"
+  },
+  "homepage": "https://github.com/PaulPopat/molecular-constructs#readme",
+  "bin": {
+    "molecular": "./bin/index.js"
+  },
+  "dependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@babel/runtime": "^7.11.2",
+    "@paulpopat/safe-type": "^2.0.5",
+    "electron": "^10.1.1",
+    "fs-extra": "^9.0.1",
+    "typescript": "^3.9.7"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.1",
+    "@types/jest": "^26.0.9",
+    "@types/node": "^14.6.2",
+    "babel-jest": "^26.2.2",
+    "jest": "^26.2.2",
+    "ts-jest": "^26.1.4"
+  }
+}
