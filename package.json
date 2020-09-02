@@ -1,5 +1,5 @@
 {
-  "name": "molecular-constructs",
+  "name": "@paulpopat/molecular-constructs",
   "version": "0.0.1",
   "description": "Electron made simple",
   "main": "./bin/index.js",
@@ -25,20 +25,33 @@
     "@babel/core": "^7.11.1",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/polyfill": "^7.11.5",
     "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "@babel/runtime": "^7.11.2",
     "@paulpopat/safe-type": "^2.0.5",
     "electron": "^10.1.1",
+    "electron-builder": "^22.8.0",
+    "electron-updater": "^4.3.4",
+    "electron-window-state": "^5.0.3",
     "fs-extra": "^9.0.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
+    "@babel/cli": "^7.11.5",
     "@types/fs-extra": "^9.0.1",
     "@types/jest": "^26.0.9",
     "@types/node": "^14.6.2",
+    "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8",
     "babel-jest": "^26.2.2",
     "jest": "^26.2.2",
     "ts-jest": "^26.1.4"
+  },
+  "exports": {
+    "./": "./lib/"
   }
 }

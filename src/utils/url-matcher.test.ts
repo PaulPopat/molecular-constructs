@@ -7,6 +7,13 @@ it("Matches a basic url", () => {
   });
 });
 
+it("Matches an empty url", () => {
+  expect(FindMatch("/", ["/", "/other/test"])).toStrictEqual({
+    match: "/",
+    params: {},
+  });
+});
+
 it("Throws if there is no match", () => {
   expect(() => FindMatch("/test/url", [])).toThrowError(
     "No matching URL for /test/url"
