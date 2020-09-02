@@ -20,6 +20,8 @@ export default async function (root: string) {
   }
 
   return async (url: string, body: any) => {
+    console.log(url);
+
     const match = FindMatch(url, urls);
     const details = windows[match.match];
     if (!details) {
@@ -45,9 +47,9 @@ export default async function (root: string) {
       const ReactDom = require("react-dom");
       const dom_container = document.querySelector("#react-root");
       ReactDom.render(
-        require("${details}").default(${JSON.stringify(body)}, ${JSON.stringify(
-      match.params
-    )}),
+        require("${details.replace(/\\/gm, "/")}").default(${JSON.stringify(
+      body
+    )}, ${JSON.stringify(match.params)}),
         dom_container
       )
     </script>
@@ -57,6 +59,7 @@ export default async function (root: string) {
     const state = StateKeeper({
       defaultWidth: config.window.width,
       defaultHeight: config.window.height,
+      file: url.replace(/\//gm, "_-_") + ".json",
     });
 
     const window = new BrowserWindow({

@@ -6,6 +6,11 @@ export function FindMatch(url: string, options: string[]) {
     const segment = split[i];
     for (const option of valid) {
       const part = option[i];
+      if (!part) {
+        valid = valid.filter((v) => v !== option);
+        continue;
+      }
+
       if (part.startsWith("[") && !valid.find((v) => v[i] === segment)) {
         params[part.replace("[", "").replace("]", "")] = segment;
         continue;

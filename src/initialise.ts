@@ -1,5 +1,4 @@
 import fs from "fs-extra";
-import Path from "path";
 const { spawn } = require("child_process");
 
 export async function Initialise() {
@@ -52,7 +51,7 @@ export default (props: unknown, params: unknown) => {
 
   await fs.outputFile(
     "./src/commands/index.ts",
-    `export default (props: unknown, params: unknown) => {
+    `export default async (props: unknown, params: unknown) => {
   return {};
 }
 `

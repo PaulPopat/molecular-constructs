@@ -25,27 +25,35 @@ if (command === "init") {
  * @param {NodeJS.Dict<string>} env
  */
 function ExecuteNode(command, args, env) {
-  let command_name = command;
-  if (process.platform === "win32") {
-    command_name = command_name + ".cmd";
-  }
+  return new Promise((res, rej) => {
+    let command_name = command;
+    if (process.platform === "win32") {
+      command_name = command_name + ".cmd";
+    }
 
-  const spawned = spawn(
-    path.join(__dirname, "..", "node_modules", ".bin", command_name),
-    args,
-    { env: env }
-  );
+    const spawned = spawn(
+      path.join(".", "node_modules", ".bin", command_name),
+      args,
+      { env: env }
+    );
 
-  spawned.stdout.on("data", (data) => {
-    console.log(`stdout: ${data}`);
-  });
+    spawned.stdout.on("data", (data) => {
+      console.log(`stdout: ${data}`);
+    });
 
-  spawned.stderr.on("data", (data) => {
-    console.error(`stderr: ${data}`);
-  });
+    spawned.stderr.on("data", (data) => {
+      console.error(`stderr: ${data}`);
+    });
 
-  spawned.on("close", (code) => {
-    console.log(`child process exited with code ${code}`);
+    spawned.on("close", (code) => {
+      if (code !== 0) {
+        rej(
+          `Process ${command} ${args.join(" ")} failed with exit code ${code}`
+        );
+      } else {
+        res();
+      }
+    });
   });
 }
 
@@ -57,11 +65,15 @@ if (command === "dev") {
       ExecuteNode("electron", [path.join(__dirname, "..", "lib")], {
         IS_DEV: "true",
       });
+    })
+    .catch((e) => {
+      console.error(e);
+      process.exit(1);
     });
 }
 
 if (command === "package") {
-  console.log("Compiling and starting the app in dev mode");
+  console.log("Packaging app using electron-builder");
   const args = process.argv.filter(
     (a) =>
       [...options, "molecular"].find((o) => o === a) == null &&
@@ -73,8 +85,12 @@ if (command === "package") {
   });
   require("../lib/compiler")
     .CompileCode("./src")
-    .then(() => {
-      ExecuteNode("electron-builder", ["install-app-deps"]);
-      ExecuteNode("electron-builder", ["build", ...args]);
+    .then(async () => {
+      await ExecuteNode("electron-builder", ["install-app-deps"]);
+      await ExecuteNode("electron-builder", ["build", ...args]);
+    })
+    .catch((e) => {
+      console.error(e);
+      process.exit(1);
     });
 }

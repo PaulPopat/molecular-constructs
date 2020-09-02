@@ -5,6 +5,5 @@ export function Request(url: string, body: any) {
 }
 
 export function OpenWindow(url: string, body: any) {
-  return ipcRenderer.invoke("open-construct", url, body);
+  return ipcRenderer.send("open-construct", url, body);
 }
-
