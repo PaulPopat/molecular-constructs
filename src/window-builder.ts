@@ -36,7 +36,7 @@ export default async function (root: string) {
     <title>${config.title}</title>
     ${
       config.css
-        ? `<link rel="stylesheet" type="text/css" href="${config.css}" />`
+        ? `<style>${await fs.readFile(config.css, "utf-8")}</style>`
         : ""
     }
   </head>
