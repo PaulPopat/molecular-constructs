@@ -1,6 +1,6 @@
 import { ipcRenderer } from "electron";
 
-export function Request(url: string, body: any) {
+export function Request(url: string, body: any): Promise<unknown> {
   return ipcRenderer.invoke("call-molecule", url, body);
 }
 

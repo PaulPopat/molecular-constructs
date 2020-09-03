@@ -44,12 +44,18 @@ export default async function (root: string) {
     <div id="react-root"></div>
     <script>
       require("@babel/polyfill");
+      const React = require("react");
       const ReactDom = require("react-dom");
+      const Action = require("${details.replace(/\\/gm, "/")}").default;
       const dom_container = document.querySelector("#react-root");
       ReactDom.render(
-        require("${details.replace(/\\/gm, "/")}").default(${JSON.stringify(
-      body
-    )}, ${JSON.stringify(match.params)}),
+        React.createElement(
+          Action,
+          {
+            body: ${JSON.stringify(body)},
+            params: ${JSON.stringify(match.params)}
+          }
+        ),
         dom_container
       )
     </script>

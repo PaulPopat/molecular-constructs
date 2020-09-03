@@ -28,7 +28,7 @@ export async function Initialise() {
     `import React from "react";
 
 // As this is the index. It will be loaded at the app start, with empty props and params.
-export default (props: unknown, params: unknown) => {
+export default (props: { body: unknown, params: unknown }) => {
   return <div>Hello world</div>;
 }
 `
