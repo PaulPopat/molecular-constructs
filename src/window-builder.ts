@@ -40,7 +40,7 @@ export default async function (root: string) {
         : ""
     }
   </head>
-  <body>
+  <body style="padding: 0; margin: 0;">
     <div id="react-root"></div>
     <script>
       require("@babel/polyfill");
