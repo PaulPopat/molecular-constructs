@@ -1,6 +1,6 @@
 {
   "name": "@paulpopat/molecular-constructs",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Electron made simple",
   "main": "./bin/index.js",
   "scripts": {

@@ -4,6 +4,7 @@ import StateKeeper from "electron-window-state";
 import { ReadDirectory } from "./file-system";
 import { FindMatch } from "./utils/url-matcher";
 import { PathToUrl } from "./utils/path-to-url";
+import { GetAppContentPath } from "./utils/get-local-path";
 
 export default async function (root: string) {
   const window_roots = await ReadDirectory(root);
@@ -36,7 +37,10 @@ export default async function (root: string) {
     <title>${config.title}</title>
     ${
       config.css
-        ? `<style>${await fs.readFile(config.css, "utf-8")}</style>`
+        ? `<style>${await fs.readFile(
+            GetAppContentPath(config.css),
+            "utf-8"
+          )}</style>`
         : ""
     }
   </head>
