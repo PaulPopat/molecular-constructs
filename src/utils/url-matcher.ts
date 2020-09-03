@@ -26,6 +26,7 @@ export function FindMatch(url: string, options: string[]) {
     }
   }
 
+  valid = valid.filter((v) => v.length === split.length);
   return {
     match: "/" + valid[0].join("/"),
     params: params,

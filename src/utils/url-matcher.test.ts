@@ -14,6 +14,13 @@ it("Matches an empty url", () => {
   });
 });
 
+it("Matches an empty url with a single length one", () => {
+  expect(FindMatch("/", ["/other", "/"])).toStrictEqual({
+    match: "/",
+    params: {},
+  });
+});
+
 it("Matches urls of different lengths", () => {
   expect(FindMatch("/test", ["/", "/other/test", "/test"])).toStrictEqual({
     match: "/test",
