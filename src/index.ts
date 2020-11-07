@@ -8,7 +8,7 @@ import { GetAppContentPath } from "./utils/get-local-path";
 
   const Run = await CommandRunner(GetAppContentPath(".molecular/commands"));
   const Open = await WindowManager(GetAppContentPath(".molecular/windows"));
-  ipcMain.handle("call-molecule", (_, url, body) => Run(url, body));
+  ipcMain.handle("call-molecule", (_, url, method, body) => Run(url, method, body));
   ipcMain.on("open-construct", (_, url, body) => Open(url, body));
   await Open("/", {});
 })().catch((e) => {
