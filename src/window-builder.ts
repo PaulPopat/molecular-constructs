@@ -5,6 +5,7 @@ import { ReadDirectory } from "./file-system";
 import { FindMatch } from "./utils/url-matcher";
 import { PathToUrl } from "./utils/path-to-url";
 import { GetAppContentPath } from "./utils/get-local-path";
+import { overlayWindow } from "electron-overlay-window";
 
 export default async function (root: string) {
   const window_roots = await ReadDirectory(root);
@@ -72,6 +73,10 @@ export default async function (root: string) {
       file: url.replace(/\//gm, "_-_") + ".json",
     });
 
+    if (typeof config.overlayTo === "string") {
+      config.window = { ...config.window, ...overlayWindow.WINDOW_OPTS };
+    }
+
     const window = new BrowserWindow({
       ...config.window,
       x: state.x,
@@ -80,8 +85,16 @@ export default async function (root: string) {
       height: state.height,
     });
 
+    if (config.ignoreMouse) {
+      window.setIgnoreMouseEvents(true);
+    }
+
     if (process.env.IS_DEV) {
       window.webContents.openDevTools();
+    }
+
+    if (typeof config.overlayTo === "string") {
+      overlayWindow.attachTo(window, config.overlayTo);
     }
 
     window.loadURL("data:text/html;charset=UTF-8," + encodeURIComponent(html));
